@@ -14,5 +14,7 @@ requirejs.config({
   }
 });
 
-require(['app/loader.js'], function (loader) {
+require(['app/game.js','app/level.js'], function (game, level) {
+  game.state.add('level', level);
+  game.state.start('level');
 });
