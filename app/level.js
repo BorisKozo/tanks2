@@ -5,6 +5,9 @@
 
   return {
     preload: function () {
+
+      this.game.load.image('shell', 'assets/sprites/shell.png');
+
       tank.preload();
     },
 
@@ -44,6 +47,8 @@
       if (controls.fire.isDown) {
         tank.fire();
       }
+
+      tank.update();
 
       
     }

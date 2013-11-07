@@ -2,10 +2,10 @@
   image: {
     id: 't72_hull',
     path: 'assets/sprites/t72_hull.png',
-    anchorX: 9,
-    anchorY: 16,
-    width: 19,
-    height: 31
+    anchorX: 16,
+    anchorY: 9,
+    width: 31,
+    height: 19
 
   },
   spec: {
