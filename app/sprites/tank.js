@@ -1,9 +1,56 @@
 ﻿define(['Phaser'], function (Phaser, game) {
 
-  function rotate(rad) {
-    this.hull.rotation += rad;
-    this.turret.rotation += rad;
+  function rotateHull(angle) {
+    this.hull.rotation += angle;
+    this.turret.rotation += angle;
   }
+
+  function rotateTurret(angle) {
+    this.turret.rotation += angle;
+  }
+
+  //Should be rotateHullCW
+  function rotateHullRight() {
+    rotateHull.call(this, this.tankData.hull.spec.rotation);
+  }
+
+  //Should be rotateHullCCW
+  function rotateHullLeft() {
+    rotateHull.call(this, -this.tankData.hull.spec.rotation);
+  }
+
+  //Should be rotateHullCW
+  function rotateTurretRight() {
+    rotateTurret.call(this, this.tankData.turret.spec.rotation);
+  }
+
+  //Should be rotateHullCCW
+  function rotateTurretLeft() {
+    rotateTurret.call(this, -this.tankData.turret.spec.rotation);
+  }
+
+
+  function move(direction) {
+    var delta = this.game.physics.velocityFromRotation(this.hull.rotation, direction*this.tankData.hull.spec.speed);
+    this.hull.x += delta.y;
+    this.hull.y -= delta.x;
+
+    this.turret.x += delta.y;
+    this.turret.y -= delta.x;
+  }
+
+  function moveBackward() {
+    move.call(this, -1);
+  }
+
+  function moveForward() {
+    move.call(this, 1);
+  }
+
+  function fire() {
+
+  }
+
 
   function create(x,y) {
 
@@ -29,9 +76,19 @@
     this.tankData = tankData;
 
     //functions
-    this.rotate = rotate;
     this.preload = preload;
     this.create = create;
+
+    this.rotateHullRight = rotateHullRight;
+    this.rotateHullLeft = rotateHullLeft;
+    this.rotateTurretRight = rotateTurretRight;
+    this.rotateTurretLeft = rotateTurretLeft;
+
+    this.moveForward = moveForward;
+    this.moveBackward = moveBackward;
+
+    this.fire = fire;
+    ;
   };
 
   return Tank;
