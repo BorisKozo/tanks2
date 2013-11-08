@@ -1,22 +1,35 @@
-﻿define(['Phaser', './game.js', './sprites/tank.js', './tanks_data.js'], function (Phaser, game, Tank, tankData) {
-  var selectedTankData = tankData.t72
+﻿define(['Phaser', './game.js', './sprites/tank.js','./sprites/barrel.js', './tanks_data.js','./targets_data.js'], function (Phaser, game, Tank, Barrel, tanksData, targertsData) {
+  var selectedTankData = tanksData.t72
   var tank = new Tank(game, selectedTankData);
+  var barrel = new Barrel(game, targertsData.barrel);
+  var shells;
   var controls;
+
+  function barrelShellCollisionHandler(barrel, shell) {
+    barrel.owner.hit(shell);
+    shell.kill();
+  }
 
   return {
     preload: function () {
 
       this.game.load.image('shell', 'assets/sprites/shell.png');
+      this.game.load.spritesheet('explosion', 'assets/sprites/explosion.png', 128, 128);
 
       tank.preload();
+      barrel.preload();
     },
 
     create: function () {
+
+      shells = game.add.group();
+
       controls = game.input.keyboard.createCursorKeys()
       controls.turretLeft = game.input.keyboard.addKey(Phaser.Keyboard.A);
       controls.turretRight = game.input.keyboard.addKey(Phaser.Keyboard.D);
       controls.fire = game.input.keyboard.addKey(Phaser.Keyboard.S);
       tank.create(100, 100);
+      barrel.create(220, 100);
     },
 
     update: function () {
@@ -45,11 +58,16 @@
       }
 
       if (controls.fire.isDown) {
-        tank.fire();
+        var shell = tank.fire();
+        if (shell) {
+          shells.add(shell);
+          //game.physics.quadTree.insert(shell.body);
+        }
       }
 
       tank.update();
 
+      game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler);
       
     }
 
