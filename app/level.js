@@ -5,11 +5,19 @@
   var shells;
   var controls;
 
+  function generateBarrel() {
+    var marginX = 50;
+    var marginY = 50;
+    var x = this.game.rnd.integerInRange(marginX, this.game.width - marginX);
+    var y = this.game.rnd.integerInRange(marginY, this.game.height - marginY);
+    barrel.reviveAt(x, y);
+  }
+
   function barrelShellCollisionHandler(barrel, shell) {
     barrel.owner.hit(shell);
     shell.kill();
-    if (barrel.hp === 0) {
-      this.generateBarrel();
+    if (barrel.owner.hp === 0) {
+      generateBarrel.call(this);
     }
   }
 
@@ -71,7 +79,7 @@
 
       tank.update();
 
-      game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler);
+      game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler,null,this);
       
     }
 

@@ -27,11 +27,19 @@
     }
   }
 
+  function reviveAt(x, y) {
+    this.barrel.revive();
+    this.barrel.x = x;
+    this.barrel.y = y;
+    this.hp = this.barrelData.spec.hp;
+  }
+
   var Barrel = function (game, barrelData) {
     this.game = game;
     this.barrelData = barrelData;
     this.preload = preload;
     this.create = create;
+    this.reviveAt = reviveAt;
     this.hit = hit;
   }
 
