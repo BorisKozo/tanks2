@@ -1,6 +1,6 @@
 ﻿define({
   image: {
-    id: 't72_hull',
+    id: 'assets/sprites/t72_hull.png',
     path: 'assets/sprites/t72_hull.png',
     anchorX: 16,
     anchorY: 9,

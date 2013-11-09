@@ -16,11 +16,14 @@
   function hit(shell) {
     this.hp -= shell.tag.damage;
     if (this.hp <= 0) {
-      this.explosion = this.game.add.sprite(this.barrel.x, this.barrel.y, 'explosion');
+      this.explosion = this.game.add.sprite(this.barrel.x, this.barrel.y, 'assets/sprites/explosion.png');
       this.explosion.anchor.setTo(0.5, 0.5);
       this.explosion.animations.add('explode');
-      this.explosion.animations.play('explode',null,false,true);
+      this.explosion.animations.play('explode', null, false, true);
+      var explosion = this.game.add.audio('assets/sounds/explode1.ogg');
+      explosion.play();
       this.barrel.kill();
+      this.hp = 0;
     }
   }
 

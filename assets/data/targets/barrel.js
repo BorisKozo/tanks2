@@ -1,10 +1,10 @@
 ﻿define({
   image: {
-    id: 'barrel',
+    id: 'assets/sprites/barrel.png',
     path: 'assets/sprites/barrel.png'
   },
   spec: {
-    hp: 200,
+    hp: 10,
     armor: 100
   }
 });

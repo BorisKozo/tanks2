@@ -54,7 +54,7 @@
       point = point.rotate(this.tankData.turret.image.anchorX, this.tankData.turret.image.anchorY, this.turret.angle, true);
       var x = this.turret.x + point.x - this.tankData.turret.image.anchorX;
       var y = this.turret.y + point.y - this.tankData.turret.image.anchorY;
-      var shell = this.game.add.sprite(x, y, 'shell');
+      var shell = this.game.add.sprite(x, y, 'assets/sprites/shell.png');
       shell.anchor.setTo(0.5, 0.5);
       shell.outOfBoundsKill = true;
       shell.rotation = this.turret.rotation;

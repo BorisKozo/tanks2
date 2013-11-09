@@ -1,6 +1,6 @@
 ﻿define({
   image: {
-    id: 't72_turret',
+    id: 'assets/sprites/t72_turret.png',
     path: 'assets/sprites/t72_turret.png',
     anchorX: 7,
     anchorY: 7,
@@ -12,7 +12,7 @@
   sound: {
     gunFire: {
       path: 'assets/sounds/tank_firing_1.ogg',
-      id: 't72_gun_fire'
+      id: 'assets/sounds/tank_firing_1.ogg'
     }
   },
   spec: {

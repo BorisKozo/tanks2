@@ -8,13 +8,17 @@
   function barrelShellCollisionHandler(barrel, shell) {
     barrel.owner.hit(shell);
     shell.kill();
+    if (barrel.hp === 0) {
+      this.generateBarrel();
+    }
   }
 
   return {
     preload: function () {
 
-      this.game.load.image('shell', 'assets/sprites/shell.png');
-      this.game.load.spritesheet('explosion', 'assets/sprites/explosion.png', 128, 128);
+      this.game.load.image('assets/sprites/shell.png', 'assets/sprites/shell.png');
+      this.game.load.spritesheet('assets/sprites/explosion.png', 'assets/sprites/explosion.png', 128, 128);
+      this.game.load.audio('assets/sounds/explode1.ogg', ['assets/sounds/explode1.ogg']);
 
       tank.preload();
       barrel.preload();
@@ -29,7 +33,7 @@
       controls.turretRight = game.input.keyboard.addKey(Phaser.Keyboard.D);
       controls.fire = game.input.keyboard.addKey(Phaser.Keyboard.S);
       tank.create(100, 100);
-      barrel.create(220, 100);
+      barrel.create(620, 100);
     },
 
     update: function () {
