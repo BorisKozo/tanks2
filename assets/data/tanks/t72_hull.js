@@ -10,7 +10,8 @@
   },
   spec: {
     rotation: 0.01,
-    rotationDispersion: 0.01,
+    rotationDispersion: 0.2,
+    movementDispersion: 0.15,
     speed: 0.5
   }
 });

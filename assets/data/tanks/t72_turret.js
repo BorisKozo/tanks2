@@ -16,8 +16,13 @@
     }
   },
   spec: {
-    rotation: 0.05,
-    rotationDispersion: 0.03,
+    rotation: 0.005,
+    rotationDispersion: 0.2,
+    dispersion:{
+      min: 7, //This is degrees
+      max:20
+    },
+    aimingSpeed: 0.05,
     reloadTime: 3000,
     penetration:{
       max: 120,
