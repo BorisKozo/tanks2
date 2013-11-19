@@ -75,11 +75,13 @@
       shell.anchor.setTo(0.5, 0.5);
       shell.outOfBoundsKill = true;
       shell.rotation = this.turret.rotation;
+      shell.body.immovable = true;
       shell.tag = {
-        penetration: this.tankData.turret.spec.penetration.max, //should be random between min and max
-        damage: this.tankData.turret.spec.damage.max //should be random between min and max
+        penetration: math.randomInRange(this.tankData.turret.spec.penetration.min, this.tankData.turret.spec.penetration.max), 
+        damage: math.randomInRange(this.tankData.turret.spec.damage.min, this.tankData.turret.spec.damage.max) 
       };
       shell.angle = math.randomNormal(shell.angle, this.dispersion * 0.6);
+      shell.collisionType = "shell";
       this.game.physics.velocityFromAngle(shell.angle, 500, shell.body.velocity);
       this.gunFire.play();
       this.reloadCounter = 0;
@@ -140,6 +142,10 @@
 
     this.dispersion = math.incMin(this.dispersion, - this.tankData.turret.spec.aimingSpeed, this.tankData.turret.spec.dispersion.min);
     calculateAimingGuide.call(this);
+
+    //console.log(this.turret.angle);
+    //console.log(this.turret.rotation);
+
   }
 
   var Tank = function (game, tankData) {

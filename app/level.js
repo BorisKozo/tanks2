@@ -1,27 +1,39 @@
-﻿define(['Phaser', './game.js', './sprites/tank.js','./sprites/barrel.js', './tanks_data.js','./targets_data.js'], function (Phaser, game, Tank, Barrel, tanksData, targertsData) {
+﻿define(['Phaser', './math.js', './game.js', './collision_manager.js', './sprites/tank.js', './sprites/barrel.js', './tanks_data.js', './targets_data.js'], function (Phaser, math, game, CollisionManager, Tank, Barrel, tanksData, targertsData) {
   var selectedTankData = tanksData.t72
   var tank = new Tank(game, selectedTankData);
   var barrel = new Barrel(game, targertsData.barrel);
   var shells;
   var controls;
+  var collisionManager = new CollisionManager();
+  var barrelToShellCollider = {
+    test: function (barrel, shell) {
+      return CollisionManager.colliders.circleCircle.test(shell, barrel.barrel);
+    },
+    symetric: false
+  };
 
   function generateBarrel() {
     var marginX = 50;
     var marginY = 50;
-    var x = this.game.rnd.integerInRange(marginX, this.game.width - marginX);
-    var y = this.game.rnd.integerInRange(marginY, this.game.height - marginY);
+    var x = game.rnd.integerInRange(marginX, game.width - marginX);
+    var y = game.rnd.integerInRange(marginY, game.height - marginY);
     barrel.reviveAt(x, y);
   }
 
   function barrelShellCollisionHandler(barrel, shell) {
-    barrel.owner.hit(shell);
+    barrel.hit(shell);
     shell.kill();
-    if (barrel.owner.hp === 0) {
-      generateBarrel.call(this);
+    if (barrel.hp === 0) {
+      generateBarrel();
     }
   }
 
-  return {
+  function checkCollision(barrel, shell) {
+    var result = math.withinDistance(barrel.x, barrel.y, shell.x, shell.y, barrel.width / 2);
+    return result;
+  }
+
+  var level = {
     preload: function () {
 
       this.game.load.image('assets/sprites/shell.png', 'assets/sprites/shell.png');
@@ -41,7 +53,8 @@
       controls.turretRight = game.input.keyboard.addKey(Phaser.Keyboard.D);
       controls.fire = game.input.keyboard.addKey(Phaser.Keyboard.S);
       tank.create(100, 100);
-      barrel.create(620, 100);
+      barrel.create(400, 100);
+      collisionManager
     },
 
     update: function () {
@@ -79,9 +92,14 @@
 
       tank.update();
 
-      game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler,null,this);
-      
+      shells.forEachAlive(function (shell) {
+        collisionManager.collide(barrel, shell, barrelToShellCollider, barrelShellCollisionHandler);
+      }, this);
+      //game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler, checkCollision, this);
+
     }
 
   }
+
+  return level;
 });

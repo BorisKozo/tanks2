@@ -19,14 +19,14 @@
     rotation: 0.005,
     rotationDispersion: 0.2,
     dispersion:{
-      min: 7, //This is degrees
-      max:20
+      min: 5, //This is degrees
+      max:15
     },
     aimingSpeed: 0.05,
     reloadTime: 3000,
     penetration:{
       max: 120,
-      min: 80
+      min: 95
     },
     damage: {
       max: 100,
