@@ -25,7 +25,7 @@
     aimingSpeed: 0.05,
     reloadTime: 3000,
     penetration:{
-      max: 120,
+      max: 130,
       min: 95
     },
     damage: {

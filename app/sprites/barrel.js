@@ -1,4 +1,4 @@
-﻿define(['Phaser', './../math.js'], function (Phaser, math) {
+﻿define(['Phaser', './../math.js','./hp_bar.js'], function (Phaser, math,HpBar) {
 
 
   function preload() {
@@ -21,6 +21,7 @@
 
     this.sounds.hit = this.game.add.audio(this.barrelData.sound.hit.id);
     this.hp = this.barrelData.spec.hp;
+    this.hpBar.create(x - this.barrel.width/2, y - this.barrel.height/2 - 10, this.barrel.width , this.hp);
   }
 
   function hit(shell) {
@@ -47,6 +48,7 @@
     }
 
     this.hp -= shell.tag.damage;
+    this.hpBar.hp = this.hp;
     if (this.hp <= 0) {
       this.explosion = this.game.add.sprite(this.barrel.x, this.barrel.y, 'assets/sprites/explosion.png');
       this.explosion.anchor.setTo(0.5, 0.5);
@@ -56,6 +58,7 @@
       explosion.play();
       this.barrel.kill();
       this.hp = 0;
+      this.hpBar.hp = 0;
     } else {
       this.sounds.hit.play();
     }
@@ -66,6 +69,11 @@
     this.barrel.x = x;
     this.barrel.y = y;
     this.hp = this.barrelData.spec.hp;
+    this.hpBar.reset(x - this.barrel.width / 2, y - this.barrel.height / 2 - 10, this.barrel.width, this.hp);
+  }
+
+  function update() {
+    this.hpBar.update();
   }
 
   var Barrel = function (game, barrelData) {
@@ -75,7 +83,8 @@
     this.create = create;
     this.reviveAt = reviveAt;
     this.hit = hit;
-
+    this.update = update;
+    this.hpBar = new HpBar(game);
   }
 
   Barrel.prototype.collisionType = "barrel";

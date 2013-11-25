@@ -96,7 +96,7 @@
         collisionManager.collide(barrel, shell, barrelToShellCollider, barrelShellCollisionHandler);
       }, this);
       //game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler, checkCollision, this);
-
+      barrel.update();
     }
 
   }
