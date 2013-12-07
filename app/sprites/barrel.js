@@ -21,6 +21,8 @@
 
     this.sounds.hit = this.game.add.audio(this.barrelData.sound.hit.id);
     this.hp = this.barrelData.spec.hp;
+    this.maxHp = this.hp;
+
     this.hpBar.create(x - this.barrel.width/2, y - this.barrel.height/2 - 10, this.barrel.width , this.hp);
   }
 

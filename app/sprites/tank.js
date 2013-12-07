@@ -100,8 +100,8 @@
   function calculateAimingGuide() {
 
     this.aimingGuide.clear();
-    this.aimingGuide.beginFill(0xFF0000);
-    this.aimingGuide.lineStyle(1, 0xFF0000, 1);
+    this.aimingGuide.beginFill(0xFFD800);
+    this.aimingGuide.lineStyle(2, 0xFFD800, 0.2);
 
     var aimingGuideX = this.tankData.turret.image.barrelEndX - this.turret.width * this.turret.anchor.x;
     var aimingGuideY = this.tankData.turret.image.barrelEndY - this.turret.height * this.turret.anchor.y;
@@ -166,7 +166,7 @@
     this.moveBackward = moveBackward;
 
     this.fire = fire;
-    ;
+    
   };
 
   return Tank;

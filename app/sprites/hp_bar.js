@@ -32,7 +32,7 @@
     }
     this.hpBar.clear();
     //this.hpBar.beginFill(0xFF0000);
-    this.hpBar.lineStyle(1, 0x808080, 1);
+    this.hpBar.lineStyle(1, 0x282828, 1);
     this.hpBar.beginFill(color);
     this.hpBar.drawRect(1, 1, percent*(this.width - 2), 3);
     this.hpBar.endFill();
@@ -46,7 +46,7 @@
     this.create = create;
     this.reset = reset;
     this.update = update;
-  }
+  };
 
   return HpBar;
 });
