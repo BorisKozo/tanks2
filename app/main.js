@@ -2,7 +2,7 @@
 'use strict';
 
 requirejs.config({
-  baseUrl:"tanks2",
+  baseUrl:"",
   waitSeconds: 3000,
   shim: {
     'Phaser': {
