@@ -3,9 +3,9 @@
   var aimingGuideLength = 200;
 
   function rotateHull(angle) {
-    this.hull.rotation += angle;
+    this.sprites.rotation += angle;
     this.dispersion = math.incMax(this.dispersion,this.tankData.hull.spec.rotationDispersion, this.tankData.turret.spec.dispersion.max);
-    rotateTurret.call(this, angle, true);
+    //rotateTurret.call(this, angle, true);
   }
 
   function rotateTurret(angle, avoidDispersion) {
@@ -38,15 +38,9 @@
 
 
   function move(direction) {
-    var delta = this.game.physics.velocityFromRotation(this.hull.rotation, direction * this.tankData.hull.spec.speed);
-    this.hull.x += delta.x;
-    this.hull.y += delta.y;
-
-    this.turret.x += delta.x;
-    this.turret.y += delta.y;
-
-    this.aimingGuide.x += delta.x;
-    this.aimingGuide.y += delta.y;
+    var delta = this.game.physics.velocityFromRotation(this.sprites.rotation, direction * this.tankData.hull.spec.speed);
+    this.sprites.x += delta.x;
+    this.sprites.y += delta.y;
 
     this.dispersion = math.incMax(this.dispersion, this.tankData.hull.spec.movementDispersion, this.tankData.turret.spec.dispersion.max);
   }
@@ -60,10 +54,12 @@
   }
 
   function getBarrelEnd() {
-    var point = new Phaser.Point(this.tankData.turret.image.barrelEndX, this.tankData.turret.image.barrelEndY);
-    point = point.rotate(this.tankData.turret.image.anchorX, this.tankData.turret.image.anchorY, this.turret.angle, true);
-    var x = this.turret.x + point.x - this.tankData.turret.image.anchorX;
-    var y = this.turret.y + point.y - this.tankData.turret.image.anchorY;
+    var hull = this.tankData.hull;
+    var turret = this.tankData.turret;
+    var barrelEnd = new Phaser.Point(turret.image.barrelEndX, turret.image.barrelEndY);
+    barrelEnd.rotate(turret.image.anchorX, turret.image.anchorY, this.turret.rotation + this.sprites.rotation);
+    var x = this.turret.worldTransform[2] + barrelEnd.x - turret.image.anchorX;
+    var y = this.turret.worldTransform[5] + barrelEnd.y - turret.image.anchorY;
     return { x: x, y: y };
   }
 
@@ -74,7 +70,7 @@
       var shell = this.game.add.sprite(barrelEndPoint.x, barrelEndPoint.y, 'assets/sprites/shell.png');
       shell.anchor.setTo(0.5, 0.5);
       shell.outOfBoundsKill = true;
-      shell.rotation = this.turret.rotation;
+      shell.rotation = this.turret.rotation+this.sprites.rotation;
       shell.body.immovable = true;
       shell.tag = {
         penetration: math.randomInRange(this.tankData.turret.spec.penetration.min, this.tankData.turret.spec.penetration.max), 
@@ -103,8 +99,8 @@
     this.aimingGuide.beginFill(0xFFD800);
     this.aimingGuide.lineStyle(2, 0xFFD800, 0.2);
 
-    var aimingGuideX = this.tankData.turret.image.barrelEndX - this.turret.width * this.turret.anchor.x;
-    var aimingGuideY = this.tankData.turret.image.barrelEndY - this.turret.height * this.turret.anchor.y;
+    var aimingGuideX = this.tankData.turret.image.barrelEndX - this.tankData.turret.image.anchorX;
+    var aimingGuideY = this.tankData.turret.image.barrelEndY - this.tankData.turret.image.anchorY;
     var deltaX = aimingGuideLength * Math.cos(Phaser.Math.degToRad(this.dispersion));
     var deltaY = aimingGuideLength * Math.sin(Phaser.Math.degToRad(this.dispersion));
     this.aimingGuide.moveTo(aimingGuideX, aimingGuideY);
@@ -120,15 +116,21 @@
 
     var hull = this.tankData.hull;
     var turret = this.tankData.turret;
+    this.sprites = this.game.add.group();
+    this.sprites.x = x;
+    this.sprites.y = y;
+    this.hull = this.game.add.sprite(0, 0, hull.image.id);
+    this.hull.anchor.setTo(hull.image.centerX / hull.image.width, hull.image.centerY / hull.image.height);
+    
+    this.sprites.add(this.hull);
 
-    this.hull = this.game.add.sprite(x, y, hull.image.id);
-    this.hull.anchor.setTo(hull.image.anchorX / hull.image.width, hull.image.anchorY / hull.image.height);
-
-    this.turret = this.game.add.sprite(x, y, turret.image.id);
+    this.turret = this.game.add.sprite(hull.image.anchorX - hull.image.centerX, hull.image.anchorY - hull.image.centerY, turret.image.id);
     this.turret.anchor.setTo(turret.image.anchorX / turret.image.width, turret.image.anchorY / turret.image.height);
+    this.sprites.add(this.turret);
 
-    this.dispersion = this.tankData.turret.spec.dispersion.max;
-    this.aimingGuide = this.game.add.graphics(x, y);
+    this.dispersion = turret.spec.dispersion.max;
+    this.aimingGuide = this.game.add.graphics(this.turret.x, this.turret.y);
+    this.sprites.add(this.aimingGuide);
     calculateAimingGuide.call(this);
     this.reloadCounter = this.tankData.turret.spec.reloadTime;
 
@@ -142,9 +144,6 @@
 
     this.dispersion = math.incMin(this.dispersion, - this.tankData.turret.spec.aimingSpeed, this.tankData.turret.spec.dispersion.min);
     calculateAimingGuide.call(this);
-
-    //console.log(this.turret.angle);
-    //console.log(this.turret.rotation);
 
   }
 

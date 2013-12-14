@@ -9,6 +9,7 @@
   var controls;
   var score;
   var timer;
+  var mousePos;
   var collisionManager = new CollisionManager();
   var barrelToShellCollider = {
     test: function (barrel, shell) {
@@ -76,11 +77,19 @@
       timer.anchor.setTo(1, 0);
       timer.meta = { time: levelData.time };
 
+
+      mousePos = game.add.text(0, 0, "", {
+        font: "13px Arial",
+        fill: "#0000FF",
+        align: "left"
+      });
+
       tank.create(100, 100);
       barrel.create(400, 100);
     },
 
     update: function () {
+      mousePos.setText(game.input.mousePointer.worldX.toString() + ":" + game.input.mousePointer.worldY.toString())
       timer.meta.time -= game.time.elapsed/1000;
       timer.setText("Time : " + Math.ceil(timer.meta.time));
       if (controls.right.isDown) {

@@ -5,8 +5,9 @@
     anchorX: 16,
     anchorY: 9,
     width: 31,
-    height: 19
-
+    height: 19,
+    centerX: 16,
+    centerY: 9
   },
   spec: {
     rotation: 0.01,
