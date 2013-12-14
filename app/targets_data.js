@@ -1,6 +1,6 @@
-﻿define(['require', './../../assets/data/targets/barrel.js'],
+﻿define(['require', 'assets/data/targets/barrel.js'],
   function (require) {
     return {
-      barrel: require('./../../assets/data/targets/barrel.js'),
+      barrel: require('assets/data/targets/barrel.js'),
     }
   });
