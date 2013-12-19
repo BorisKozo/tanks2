@@ -2,12 +2,12 @@
   image: {
     id: 'assets/sprites/t72_hull.png',
     path: 'assets/sprites/t72_hull.png',
-    anchorX: 16,
-    anchorY: 9,
-    width: 31,
-    height: 19,
-    centerX: 16,
-    centerY: 9
+    anchorX: 21,
+    anchorY: 10,
+    width: 40,
+    height: 20,
+    centerX: 20,
+    centerY: 10
   },
   spec: {
     rotation: 0.01,

@@ -2,7 +2,7 @@
   var levelData = { //This needs to come from the level selector
     time: 3
   };
-  var selectedTankData = tanksData.m1a;
+  var selectedTankData = tanksData.t72;
   var tank = new Tank(game, selectedTankData);
   var barrel = new Barrel(game, targertsData.barrel);
   var shells;
