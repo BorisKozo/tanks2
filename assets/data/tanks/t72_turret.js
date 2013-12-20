@@ -2,11 +2,11 @@
   image: {
     id: 'assets/sprites/t72_turret.png',
     path: 'assets/sprites/t72_turret.png',
-    anchorX: 7,
+    anchorX: 8,
     anchorY: 7,
-    width: 28,
-    height: 15,
-    barrelEndX: 27,
+    width: 40,
+    height: 13,
+    barrelEndX: 40,
     barrelEndY: 7
   },
   sound: {
