@@ -76,7 +76,7 @@
         penetration: math.randomInRange(this.tankData.turret.spec.penetration.min, this.tankData.turret.spec.penetration.max), 
         damage: math.randomInRange(this.tankData.turret.spec.damage.min, this.tankData.turret.spec.damage.max) 
       };
-      shell.angle = math.randomNormal(shell.angle, this.dispersion * 0.6);
+      shell.angle = math.randomNormal(shell.angle, this.dispersion * 0.27);
       shell.collisionType = "shell";
       this.game.physics.velocityFromAngle(shell.angle, 500, shell.body.velocity);
       this.gunFire.play();
