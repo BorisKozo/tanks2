@@ -41,7 +41,7 @@
     return result;
   }
 
-  var level = {
+  var state = {
     preload: function () {
 
       this.game.load.image('assets/sprites/shell.png', 'assets/sprites/shell.png');
@@ -135,5 +135,5 @@
 
   };
 
-  return level;
+  return state;
 });

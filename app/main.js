@@ -15,7 +15,6 @@ requirejs.config({
   }
 });
 
-require(['app/game.js','app/states/battle.js'], function (game, level) {
-  game.state.add('battle', level);
-  game.state.start('battle');
+require(['app/loader.js'], function (loader) {
+  loader.start();
 });
