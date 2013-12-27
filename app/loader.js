@@ -6,7 +6,7 @@
     start: function () {
       game.state.add('Battle', battleState);
       game.state.add('EndScreen', endScreenState);
-      game.state.start('Battle');
+      game.state.start('EndScreen');
     }
   };
 

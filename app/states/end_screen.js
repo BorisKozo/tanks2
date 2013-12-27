@@ -1,21 +1,43 @@
-﻿define(['Phaser'], function (Phaser) {
+﻿define(['Phaser', 'app/game.js'], function (Phaser, game) {
 
   var title;
   var score;
+  var retryButton;
+  var menuButton;
+
+  var font = "64px Arial";
+
+  function onRetryClick() {
+
+  };
+
+  function onMenuClick() {
+
+  };
 
   var state = {
 
     preload: function () {
+      game.load.spritesheet('assets/images/buttons.png', 'assets/images/buttons.png',154,64);
     },
 
     create: function () {
-      score = game.add.text(10, 10, "", {
-        font: "28px Arial",
-        fill: "#ff0044",
-        align: "left"
+      title = game.add.text(game.width/2, 100, "Final Score", {
+        font: font,
+        fill: "#00FF44",
+        align: "center"
       });
-      score.meta = { value: 0 };
+      title.anchor.setTo(0.5, 0.5);
+
+      score = game.add.text(game.width / 2, 300, "1543", {
+        font: font,
+        fill: "#00FF44",
+        align: "center"
+      });
       score.anchor.setTo(0.5, 0.5);
+
+      retryButton = game.add.button(60, 500, 'assets/images/buttons.png', onRetryClick, this, 1, 0, 1);
+      menuButton = game.add.button(580, 500, 'assets/images/buttons.png', onMenuClick, this, 3, 2, 3);
     },
 
     update: function () {
