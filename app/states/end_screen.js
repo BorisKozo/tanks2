@@ -7,14 +7,16 @@
 
   var font = "64px Arial";
 
-  global.endScreen = {};
+  global.endScreen = {
+    score:0
+  };
 
   function onRetryClick() {
     game.state.start("Battle");
   };
 
   function onMenuClick() {
-    game.state.start("MainMenu");
+    game.state.start("Menu");
   };
 
   var state = {
