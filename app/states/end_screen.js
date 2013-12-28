@@ -1,4 +1,4 @@
-﻿define(['Phaser', 'app/game.js'], function (Phaser, game) {
+﻿define(['Phaser', 'app/game.js','app/global.js'], function (Phaser, game,global) {
 
   var title;
   var score;
@@ -7,12 +7,14 @@
 
   var font = "64px Arial";
 
-  function onRetryClick() {
+  global.endScreen = {};
 
+  function onRetryClick() {
+    game.state.start("Battle");
   };
 
   function onMenuClick() {
-
+    game.state.start("MainMenu");
   };
 
   var state = {
@@ -29,7 +31,7 @@
       });
       title.anchor.setTo(0.5, 0.5);
 
-      score = game.add.text(game.width / 2, 300, "1543", {
+      score = game.add.text(game.width / 2, 300, global.endScreen.score.toString(), {
         font: font,
         fill: "#00FF44",
         align: "center"

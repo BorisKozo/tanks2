@@ -2,6 +2,8 @@
         'assets/data/tanks/t72_hull.js', 'assets/data/tanks/t72_turret.js',
         'assets/data/tanks/mk2_hull.js', 'assets/data/tanks/mk2_turret.js',
         'assets/data/tanks/m1a_hull.js', 'assets/data/tanks/m1a_turret.js',
+
+        'assets/data/tanks/uber_hull.js', 'assets/data/tanks/uber_turret.js',
 ],
   function (require) {
 
@@ -18,5 +20,9 @@
         hull: require('assets/data/tanks/m1a_hull.js'),
         turret: require('assets/data/tanks/m1a_turret.js')
       },
+      uber: {
+        hull: require('assets/data/tanks/uber_hull.js'),
+        turret: require('assets/data/tanks/uber_turret.js')
+      }
     }
 });

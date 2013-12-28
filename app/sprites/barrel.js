@@ -23,7 +23,7 @@
     this.hp = this.barrelData.spec.hp;
     this.maxHp = this.hp;
 
-    this.hpBar.create(x - this.barrel.width/2, y - this.barrel.height/2 - 10, this.barrel.width , this.hp);
+    this.hpBar.create(x - this.barrel.width / 2, y - this.barrel.height / 2 - 10, this.barrel.width, this.hp);
   }
 
   function hit(shell) {
@@ -56,8 +56,7 @@
       this.explosion.anchor.setTo(0.5, 0.5);
       this.explosion.animations.add('explode');
       this.explosion.animations.play('explode', null, false, true);
-      var explosion = this.game.add.audio('assets/sounds/explode1.ogg');
-      explosion.play();
+      this.game.sound.play('assets/sounds/explode1.ogg',1,false,true);
       this.barrel.kill();
       this.hp = 0;
       this.hpBar.hp = 0;

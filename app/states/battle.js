@@ -1,8 +1,9 @@
-﻿define(['Phaser', './../math.js', './../game.js', './../collision_manager.js', './../sprites/tank.js', './../sprites/barrel.js', './../tanks_data.js', './../targets_data.js'], function (Phaser, math, game, CollisionManager, Tank, Barrel, tanksData, targertsData) {
+﻿define(['Phaser', 'app/math.js', 'app/game.js', 'app/collision_manager.js', 'app/global.js', './../sprites/tank.js', './../sprites/barrel.js', './../tanks_data.js', './../targets_data.js'],
+  function (Phaser, math, game, CollisionManager, global, Tank, Barrel, tanksData, targertsData) {
   var levelData = { //This needs to come from the level selector
-    time: 3
+    time: 100
   };
-  var selectedTankData = tanksData.t72;
+  var selectedTankData = tanksData.uber;
   var tank = new Tank(game, selectedTankData);
   var barrel = new Barrel(game, targertsData.barrel);
   var shells;
@@ -17,6 +18,8 @@
     },
     symetric: false
   };
+
+  global.battle = {};
 
   function generateBarrel() {
     var marginX = 50;
@@ -131,6 +134,11 @@
       }, this);
       //game.physics.collide(barrel.barrel, shells, barrelShellCollisionHandler, checkCollision, this);
       barrel.update();
+
+      if (timer.meta.time <= 0) {
+        global.endScreen.score = score.meta.value;
+        game.state.start("EndScreen");
+      }
     }
 
   };
