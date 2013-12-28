@@ -4,7 +4,7 @@
     time: 120
   };
   var selectedTankData = tanksData.uber;
-  var tank = new Tank(game, selectedTankData);
+  var tank; 
   var barrel = new Barrel(game, targertsData.barrel);
   var shells;
   var controls;
@@ -52,7 +52,7 @@
       this.game.load.audio('assets/sounds/explode1.ogg', ['assets/sounds/explode1.ogg']);
       this.game.load.image('sand_background', 'assets/images/beach_sand_background.jpg');
 
-      tank.preload();
+      //tank.preload();
       barrel.preload();
     },
 
@@ -87,6 +87,7 @@
         align: "left"
       });
 
+      tank = new Tank(global.battle.tankId, game, global.battle.tankData);
       tank.create(100, 100);
       barrel.create(400, 100);
     },

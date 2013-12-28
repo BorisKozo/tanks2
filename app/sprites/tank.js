@@ -79,7 +79,7 @@
       shell.angle = math.randomNormal(shell.angle, this.dispersion * 0.27);
       shell.collisionType = "shell";
       this.game.physics.velocityFromAngle(shell.angle, 500, shell.body.velocity);
-      this.gunFire.play();
+      this.game.sound.play(this.tankData.turret.sound.gunFire.id, 1, false, true);
       this.reloadCounter = 0;
       this.dispersion = this.tankData.turret.spec.dispersion.max;
       return shell;
@@ -134,7 +134,7 @@
     calculateAimingGuide.call(this);
     this.reloadCounter = this.tankData.turret.spec.reloadTime;
 
-    this.gunFire = this.game.add.audio(this.tankData.turret.sound.gunFire.id);
+    //this.gunFire = this.game.add.audio(this.tankData.turret.sound.gunFire.id);
   }
 
   function update(time) {
@@ -147,7 +147,13 @@
 
   }
 
-  var Tank = function (game, tankData) {
+  function destroy() {
+    this.sprites.destroy();
+    this.aimingGuide.destroy();
+  }
+
+  var Tank = function (tankId, game, tankData) {
+    this.id = tankId;
     this.game = game;
     this.tankData = tankData;
 
@@ -155,6 +161,7 @@
     this.preload = preload;
     this.create = create;
     this.update = update;
+    this.destroy = destroy;
 
     this.rotateHullRight = rotateHullRight;
     this.rotateHullLeft = rotateHullLeft;
